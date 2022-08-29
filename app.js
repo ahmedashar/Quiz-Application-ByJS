@@ -12,44 +12,88 @@ var questions = [
         options: ['#demo.innerHTML = "Hello World!"', 'document.getElement("p").innerHTML = "Hello World!"', 'document.getElementById("demo").innerHTML = "Hello World!"', 'document.getElementByName("p").innerHTML = "Hello World!"'],
         answer: 'document.getElementById("demo").innerHTML = "Hello World!"'
     },
-    {
-        title: 'How do you write "Hello World" in an alert box?',
-        options: ['msgBox("Hello World")', 'alertBox("Hello World")', 'msg("Hello World")', 'alert("Hello World")'],
-        answer: 'alert("Hello World")'
-    },
-    {
-        title: 'How do you create a function in JavaScript?',
-        options: ['function = myFunction()', 'function myFunction()', 'function.myFunction', 'function:myFunction()'],
-        answer: 'function myFunction()'
-    },
-    {
-        title: 'How do you call a function named "myFunction"?',
-        options: ['call function myFunction()', 'myFunction()', 'call myFunction()', 'myFunction.call'],
-        answer: 'myFunction()'
-    },
-    {
-        title: 'How to write an IF statement in JavaScript?',
-        options: ['if i == 5 then', 'if i = 5 then', 'if (i==5)', 'if i = 5'],
-        answer: 'if (i==5)'
-    },
-    {
-        title: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
-        options: ['if i isnt 5', 'if i =! 5 then', 'if (i != 5)', 'if i != 5'],
-        answer: 'if (i != 5)'
-    },
-    {
-        title: 'How do you round the number 7.25, to the nearest integer?',
-        options: ['Math.rnd(7.25)', 'Math.round(7.25)', 'rnd(7.25)', 'round(7.25)'],
-        answer: 'Math.round(7.25)'
-    }
+    // {
+    //     title: 'How do you write "Hello World" in an alert box?',
+    //     options: ['msgBox("Hello World")', 'alertBox("Hello World")', 'msg("Hello World")', 'alert("Hello World")'],
+    //     answer: 'alert("Hello World")'
+    // },
+    // {
+    //     title: 'How do you create a function in JavaScript?',
+    //     options: ['function = myFunction()', 'function myFunction()', 'function.myFunction', 'function:myFunction()'],
+    //     answer: 'function myFunction()'
+    // },
+    // {
+    //     title: 'How do you call a function named "myFunction"?',
+    //     options: ['call function myFunction()', 'myFunction()', 'call myFunction()', 'myFunction.call'],
+    //     answer: 'myFunction()'
+    // },
+    // {
+    //     title: 'How to write an IF statement in JavaScript?',
+    //     options: ['if i == 5 then', 'if i = 5 then', 'if (i==5)', 'if i = 5'],
+    //     answer: 'if (i==5)'
+    // },
+    // {
+    //     title: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
+    //     options: ['if i isnt 5', 'if i =! 5 then', 'if (i != 5)', 'if i != 5'],
+    //     answer: 'if (i != 5)'
+    // },
+    // {
+    //     title: 'How do you round the number 7.25, to the nearest integer?',
+    //     options: ['Math.rnd(7.25)', 'Math.round(7.25)', 'rnd(7.25)', 'round(7.25)'],
+    //     answer: 'Math.round(7.25)'
+    // }
 ]
 
 
 var currentQuestion = 0;
 
-renderQuiz();
+// renderQuiz();
+
+quizIntro()
+
+function quizIntro() {
+    quizContainer.innerHTML = ''
+    
+    var h1 = document.createElement('h1');
+    h1.setAttribute('class','quiz_question')
+    h1.innerText = 'JavaScript Quiz For Beginner Level'
+    
+    
+    
+    var p = document.createElement('p')
+    p.innerText = "NOTED: \n You can test your JavaScript skills with this Quiz.  \n The Quiz contain 10 questions and there is no time limit. \n The test is not official, it's just a nice way to see how much you know, or don't know, about JavaScript.\n Let's see how much marks you got."
+    p.className = 'Instructions'
+    
+
+    // var emoji = document.createElement('i');
+    // emoji.setAttribute('class', 'fa-solid fa-face-sunglasses')
+
+
+    var startBtn = document.createElement('button')
+    startBtn.innerText = "Let's Start"
+    startBtn.setAttribute('onclick', 'renderQuiz()')
+    startBtn.setAttribute('class', 'next_btn')
+    
+    quizContainer.appendChild(h1)
+
+    quizContainer.appendChild(p)
+
+    // quizContainer.appendChild(emoji)
+    
+    quizContainer.appendChild(startBtn)
+    
+    
+
+    currentQuestion = 0;
+
+
+}
+
 
 function renderQuiz() {
+
+    quizContainer.innerText = '';
+    
     if (currentQuestion >= 0 && currentQuestion < questions.length) {
         
         // question counter -------------
@@ -106,8 +150,30 @@ function renderQuiz() {
         quizContainer.appendChild(nextBtn);
     }
     else {
-        var result = (score * 100) / questions.length;
-        alert("Your Result is: " + result + '%')
+     var result = (score * 100) / questions.length;
+        
+       var h1 = document.createElement('h1');
+       h1.setAttribute('class','quiz_question')
+       h1.innerText = 'Your result is'
+   
+
+
+       var p = document.createElement('p');
+       p.innerText = result;
+
+
+    var restartBtn = document.createElement('button')
+    restartBtn.innerText = "Restart"
+    restartBtn.setAttribute('onclick', 'quizIntro()')
+    restartBtn.setAttribute('class', 'next_btn')
+
+       quizContainer.appendChild(h1)
+       quizContainer.appendChild(p)
+       quizContainer.appendChild(restartBtn)
+
+       score = 0;
+
+        // alert("Your Result is: " + result + '%')
     }
 
 }
@@ -135,7 +201,7 @@ function nextQuestion() {
         }
 
         currentQuestion++;
-        quizContainer.innerHTML = ''
+        // quizContainer.innerHTML = ''
         renderQuiz()
     }
 
